@@ -3,7 +3,8 @@ import {ADD_OI, ADD_CHILD} from '../constants/ActionTypes';
 const initialState = [{
   text: 'Use Redux',
   completed: false,
-  id: 0
+    id: 0,
+    parent: null
 }];
 
 export default function items (state = initialState, action){

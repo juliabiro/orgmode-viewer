@@ -26,50 +26,27 @@ class OrgmodeItem extends Component {
   }
 
     handleAddChild(){
-        this.props.addChild('korte', this)
+        this.props.addChild('korte', this.props.item)
 
     }
 
 
 
     render(){
-        const { item, children} = this.props;
-
+        const { item, children, actions} = this.props;
+console.log(this.props);
         return (
             <div>
                 {item.text}
                 {children.map(ch =>
-                 <OrgmodeItem key = {ch.key} item = {ch} parent ={this} addChild={this.props.addChild} {...actions} />
+                 <OrgmodeItem key = {ch.id} item = {ch} addChild={this.props.addChild} children={[]} {...actions} />
                  )}
-
                 <button onClick={this.handleAddChild.bind(this)}>
                     Add Child
                 </button>
 
             </div>
         );
-        /* let element;
-    if (this.state.editing) {
-      element = (
-        <TodoTextInput text={todo.text}
-                      editing={this.state.editing}
-                      onSave={(text) => this.handleSave(text)} />
-      );
-    } else {
-      element = (
-        <ListItem primaryText={todo.text}
-        />
-      );
-    }
-
-    return (
-      <div className={classnames({
-          completed: todo.completed,
-          editing: this.state.editing
-        })}>
-        {element}
-      </div>
-    );*/
     }
 }
 
