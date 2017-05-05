@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import TodoItem from './TodoItem';
+import OrgmodeItem from './OrgmodeItem'
 import Footer from './Footer';
-import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../constants/TodoFilters';
 import { Checkbox, List } from 'material-ui';
 
 const defaultStyle = {
@@ -9,84 +8,44 @@ const defaultStyle = {
   marginLeft: 20
 };
 
-const TODO_FILTERS = {
-  [SHOW_ALL]: () => true,
-  [SHOW_ACTIVE]: todo => !todo.completed,
-  [SHOW_COMPLETED]: todo => todo.completed
-};
 
 class MainSection extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = { filter: SHOW_ALL };
   }
 
-  handleClearCompleted() {
-    const atLeastOneCompleted = this.props.todos.some(todo => todo.completed);
-    if (atLeastOneCompleted) {
-      this.props.actions.clearCompleted();
-    }
-  }
 
-  handleShow(filter) {
-    this.setState({ filter });
-  }
+    render() {
+        const { items, actions } = this.props;
+        //TODO: get list of children here
+        let children =[]
+        let top_level_items = items.filter(item => item.parent==null);
+        console.log(top_level_items);
+        let displayable_items=[];
 
-  renderToggleAll(completedCount) {
-    const { todos, actions } = this.props;
-    if (todos.length > 0) {
-      return (
-        <Checkbox className="toggle-all"
-                  style={{marginBottom: 10}}
-                  label="Toggle All"
-                  defaultChecked={completedCount === todos.length}
-                  onCheck={actions.completeAll} />
-      );
-    }
-  }
+        for (let i=0; i<top_level_items.length; i++){
+            let it= top_level_items[i];
+            let children = items.filter(item => item.parent === it);
+            displayable_items.push({item: it, children: children});
+        }
+            /*{displayable_items.map(ditem =>
+                <OrgmodeItem key={ditem.item.id} item={ditem.item} children={ditem.children} parent={null} addChild={actions.addOrgmodeItem} {...actions} />
+            )}*/
 
-  renderFooter(completedCount) {
-    const { todos } = this.props;
-    const { filter } = this.state;
-    const activeCount = todos.length - completedCount;
-
-    if (todos.length) {
-      return (
-        <Footer completedCount={completedCount}
-                activeCount={activeCount}
-                filter={filter}
-                onClearCompleted={this.handleClearCompleted.bind(this)}
-                onShow={this.handleShow.bind(this)} />
-      );
-    }
-  }
-
-  render() {
-    const { todos, actions } = this.props;
-    const { filter } = this.state;
-
-    const filteredTodos = todos.filter(TODO_FILTERS[filter]);
-    const completedCount = todos.reduce((count, todo) =>
-      todo.completed ? count + 1 : count,
-      0
-    );
-
-    return (
+        return (
       <section className="main" style={defaultStyle}>
-        {this.renderToggleAll(completedCount)}
-        <List className="todo-list">
-          {filteredTodos.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} />
-          )}
-        </List>
-        {this.renderFooter(completedCount)}
+            {items.map(item =>
+                <OrgmodeItem key={item.id} item={item} children={children} parent={null} addChild={actions.addOrgmodeItem} {...actions} />
+            )}
+          <List className="todo-list">
+          </List>
       </section>
     );
   }
 }
 
 MainSection.propTypes = {
-  todos: PropTypes.array.isRequired,
+  items: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 };
 
