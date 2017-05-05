@@ -1,3 +1,7 @@
+# orgmode-viewer
+Study project for learning React
+forked from https://github.com/takanabe/react-redux-material_ui-boilerplate
+
 # react-redux-material_ui-boilerplate
 A boilerplate for React + Redux + Material UI + ES6 syntax applications. This boilerplate includes the following tools and frameworks:
 
