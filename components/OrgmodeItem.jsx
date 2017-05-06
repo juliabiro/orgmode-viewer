@@ -4,6 +4,8 @@ import TodoTextInput from './TodoTextInput';
 import { ListItem, IconButton, IconMenu, MenuItem } from 'material-ui';
 import { Checkbox, List } from 'material-ui';
 import { grey400 } from 'material-ui/styles/colors'
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 
 class OrgmodeItem extends Component {
@@ -37,10 +39,10 @@ class OrgmodeItem extends Component {
 
         return (
             <ListItem>
-            {item.text}
-            <button onClick={this.handleAddChild.bind(this)}>
-                Add Child
-            </button>
+                {item.text}
+                <FloatingActionButton onClick={this.handleAddChild.bind(this)} mini={true} >
+                    <ContentAdd />
+                </FloatingActionButton>
           <List className="todo-list">
                 {this.props.item.children.map(ch =>
                     <OrgmodeItem key = {ch.id} item = {ch} addChild={this.props.addChild} {...actions} />
