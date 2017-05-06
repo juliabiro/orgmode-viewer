@@ -17,33 +17,16 @@ class MainSection extends Component {
 
     render() {
         const { items, actions } = this.props;
-        //TODO: get list of children here
- //       for (let i=0; i<items.length; i++){
-            //console.log("item id ", items[i].id)
-            //console.log("item parent ", items[i].parent)
-            //if (items[i].parent){
-//console.log("parent id ", items[i].parent.id)
-            //}
-   //     }
-
 
             let children =[]
-        let top_level_items = items.filter(item => item.parent==null);
-
-        let displayable_items=[];
-
-        for (let i=0; i<top_level_items.length; i++){
-            let it= top_level_items[i];
-            let children = items.filter(item => item.parent? item.parent.id === it.id:false );
-            displayable_items.push({item: it, children: children});
-        }
+        let top_level_items = items.filter(item => item.level === 0);
 
         return (
-      <section className="main" style={defaultStyle}>
-            {displayable_items.map(ditem =>
-                <OrgmodeItem key={ditem.item.id} item={ditem.item} children={ditem.children} addChild={actions.addOrgmodeItem} {...actions} />
-            )}
+            <section className="main" style={defaultStyle}>
           <List className="todo-list">
+            {top_level_items.map(item =>
+                <OrgmodeItem key={item.id} item={item} addChild={actions.addOrgmodeItem} {...actions} />
+            )}
           </List>
       </section>
     );
