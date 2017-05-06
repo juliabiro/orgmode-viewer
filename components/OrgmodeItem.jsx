@@ -36,20 +36,19 @@ class OrgmodeItem extends Component {
 
     render(){
         const { item, actions} = this.props;
-
-        return (
-            <ListItem>
-                {item.text}
+return(
+    <ListItem  >
+        {item.text}
                 <FloatingActionButton onClick={this.handleAddChild.bind(this)} mini={true} >
                     <ContentAdd />
                 </FloatingActionButton>
-          <List className="todo-list">
-                {this.props.item.children.map(ch =>
+                <List>
+                    {this.props.item.children.map(ch =>
                     <OrgmodeItem key = {ch.id} item = {ch} addChild={this.props.addChild} {...actions} />
-                 )}
-          </List>
-            </ListItem>
-        );
+                    )}
+                </List>
+        </ListItem>
+);
     }
 }
 
