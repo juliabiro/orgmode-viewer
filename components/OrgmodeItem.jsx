@@ -32,22 +32,19 @@ class OrgmodeItem extends Component {
         this.props.addChild('korte', this.props.item);
     }
 
-
-
     render(){
         const { item, actions} = this.props;
+
+        const children = this.props.item.children.map(ch =>
+            <OrgmodeItem key = {ch.id} item = {ch} addChild={this.props.addChild} {...actions} />
+        );
 return(
-    <ListItem  >
+    <ListItem nestedItems={children} initiallyOpen={true} insetChildren={true} nestedLevel={this.props.item.level} >
         {item.text}
-                <FloatingActionButton onClick={this.handleAddChild.bind(this)} mini={true} >
-                    <ContentAdd />
-                </FloatingActionButton>
-                <List>
-                    {this.props.item.children.map(ch =>
-                    <OrgmodeItem key = {ch.id} item = {ch} addChild={this.props.addChild} {...actions} />
-                    )}
-                </List>
-        </ListItem>
+            <FloatingActionButton onClick={this.handleAddChild.bind(this)} mini={true} >
+                <ContentAdd />
+            </FloatingActionButton>
+    </ListItem>
 );
     }
 }

@@ -18,7 +18,7 @@ class MainSection extends Component {
     render() {
         const { items, actions } = this.props;
 
-            let children =[]
+        let children =[]
         let top_level_items = items.filter(item => item.level === 0);
 
         return (
