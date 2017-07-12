@@ -25,7 +25,7 @@ class MainSection extends Component {
             <section className="main" style={defaultStyle}>
           <List className="todo-list">
             {top_level_items.map(item =>
-                <OrgmodeItem key={item.id} item={item} addChild={actions.addOrgmodeItem} {...actions} />
+                <OrgmodeItem key={item.id} item={item} addChild={actions.addOrgmodeItem} editOrgmodeItem={actions.editOrgmodeItem} {...actions} />
             )}
           </List>
       </section>
