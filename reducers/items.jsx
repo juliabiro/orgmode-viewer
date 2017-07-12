@@ -24,10 +24,9 @@ export default function items (state = initialState, action){
             // TODO I need an id here, and filter the right item to edit from state.reduce
             let id = action.item.id
             let text = action.text
-console.log(state)
 
-return state.map((item)=> item.id===id?Object.assign({}, item,{text: text}):item);
-
+            let ret = state.map((item)=> item.id===id?Object.assign({}, item,{text: text}):item);
+return ret;
   default:
     return state;
     }
