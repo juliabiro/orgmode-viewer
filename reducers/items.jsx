@@ -1,5 +1,4 @@
 import {ADD_OI, ADD_CHILD, EDIT} from '../constants/ActionTypes';
-
 const initialState = [];
 
 export default function items (state = initialState, action){
