@@ -35,7 +35,6 @@ class OrgmodeItem extends Component {
 
     render(){
         const { item, actions} = this.props;
-        // problem: here the childres dont come from items, that is why the text is not updated
         const children = this.props.item.children.map(ch =>
             <OrgmodeItem key = {ch.id} item = {ch} addChild={actions.addOrgmodeItem} editOrgmodeItem={actions.editOrgmodeItem} actions={actions} {...actions} />
         );
@@ -49,7 +48,6 @@ class OrgmodeItem extends Component {
             );
 
         } else{
-            console.log(item)
             element=item.text;
         }
             return(

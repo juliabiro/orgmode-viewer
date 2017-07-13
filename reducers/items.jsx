@@ -21,12 +21,10 @@ export default function items (state = initialState, action){
                     ...state];
 
         case EDIT:
-            // TODO I need an id here, and filter the right item to edit from state.reduce
             let id = action.item.id
             let text = action.text
-
-            let ret = state.map((item)=> item.id===id?Object.assign({}, item,{text: text}):item);
-return ret;
+            action.item.text=text
+            return state
   default:
     return state;
     }
