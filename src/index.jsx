@@ -15,11 +15,22 @@ window.React = React;
 //https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-const store = configureStore();
+function initilaize(responseText){
+    const store = configureStore(responseText);
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("root")
-);
+    ReactDOM.render(
+        <Provider store={store}>
+            <App />
+        </Provider>,
+        document.getElementById("root")
+    );
+}
+
+let xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = (function() {
+    if (this.readyState === 4 && this.status === 200) {
+        initilaize(this.responseText);
+    }
+});
+    xhttp.open("GET", "https://s3-eu-west-1.amazonaws.com/juli-react/orgmode-example.org", true);
+    xhttp.send();
